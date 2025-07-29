@@ -13,6 +13,10 @@ def validate_sales_invoice_taxes(doc, event=None):
     :param sales_invoice_doc: The sales invoice document object
     :return: None
     """
+    company_doc = frappe.get_doc("Company", doc.company)
+    if company_doc.custom_zatca_invoice_enabled != 1:
+        return  # Exit the function without further checks
+
     is_gpos_installed = "gpos" in frappe.get_installed_apps()
     field_exists = frappe.get_meta(doc.doctype).has_field("custom_unique_id")
 
@@ -24,7 +28,7 @@ def validate_sales_invoice_taxes(doc, event=None):
     customer_doc = frappe.get_doc("Customer", doc.customer)
     # if customer_doc.custom_b2c != 1:
     #     frappe.throw("This customer should be B2C for Background")
-    company_doc = frappe.get_doc("Company", doc.company)
+    # company_doc = frappe.get_doc("Company", doc.company)
 
     if (
         customer_doc.custom_b2c != 1
