@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Invoice",
+  "enabled": 1,
+  "modified": "2025-07-29 16:03:15.964924",
+  "module": "Zatca Erpgulf",
+  "name": "ZATCA Sales Invoice",
+  "script": "// Helper script allows to display zatca fields only if comany is in saudia arabia and not for other countries conpany.\nfrappe.ui.form.on('Sales Invoice', 'company', (frm, cdt, cdn) => {\n\tfrm.trigger(\"check_for_zatca_enabled\");\n});\n\n\nfrappe.ui.form.on('Sales Invoice', {\n    refresh: function(frm) {\n        frm.trigger(\"check_for_zatca_enabled\");\n    },\n    check_for_zatca_enabled: async function(frm) {\n\n        const company = await frappe.db.get_value('Company', frm.doc.company, 'custom_zatca_invoice_enabled');\n        const zatca_enabeld = company.message.custom_zatca_invoice_enabled == 1;\n        \n        // if zatca enabeld display all realted fields\n        frm.toggle_display('custom_zatca_status_notification', zatca_enabeld);\n        frm.toggle_display('custom_section_break_gqwpx', zatca_enabeld);\n        frm.toggle_display('custom_b2c', zatca_enabeld);\n        frm.toggle_display('custom_zatca_pos_name', zatca_enabeld); \n    },\n});",
+  "view": "Form"
+ }
+]

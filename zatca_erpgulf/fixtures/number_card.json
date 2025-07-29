@@ -1,7 +1,9 @@
 [
  {
   "aggregate_function_based_on": "",
+  "background_color": null,
   "color": "#000000",
+  "currency": null,
   "docstatus": 0,
   "doctype": "Number Card",
   "document_type": "Sales Invoice",
@@ -26,7 +28,9 @@
  },
  {
   "aggregate_function_based_on": "",
+  "background_color": null,
   "color": "#ECAD4B",
+  "currency": null,
   "docstatus": 0,
   "doctype": "Number Card",
   "document_type": "Sales Invoice",
@@ -51,7 +55,9 @@
  },
  {
   "aggregate_function_based_on": "",
+  "background_color": null,
   "color": "#449CF0",
+  "currency": null,
   "docstatus": 0,
   "doctype": "Number Card",
   "document_type": "Sales Invoice",
@@ -76,7 +82,9 @@
  },
  {
   "aggregate_function_based_on": "",
+  "background_color": null,
   "color": "#29CD42",
+  "currency": null,
   "docstatus": 0,
   "doctype": "Number Card",
   "document_type": "Sales Invoice",
