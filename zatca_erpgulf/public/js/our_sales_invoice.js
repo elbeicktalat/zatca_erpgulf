@@ -73,8 +73,17 @@ frappe.realtime.on('hide_gif', () => {
     $('#custom-gif-overlay').remove();
 });
 
+frappe.ui.form.on('Sales Invoice', 'company', (frm, cdt, cdn) => {
+	frm.trigger("toggle_display_zatca_fields");
+});
+
 frappe.ui.form.on("Sales Invoice", {
-    refresh: function (frm) {
+    refresh: async function (frm) {
+        frm.trigger("toggle_display_zatca_fields");
+        const zatca_enabled_res = await frappe.db.get_value('Company', frm.doc.company, 'custom_zatca_invoice_enabled');
+        const zatca_enabeld = zatca_enabled_res.message.custom_zatca_invoice_enabled == 1;
+        if (!zatca_enabeld) return;
+
         if (frm.doc.docstatus === 1 && !["CLEARED", "REPORTED"].includes(frm.doc.custom_zatca_status)) {
             frm.add_custom_button(__("Send invoice to ZATCA"), function () {
                 frm.call({
@@ -162,9 +171,17 @@ frappe.ui.form.on("Sales Invoice", {
             dialog.show();
         });
 
+    },
+    toggle_display_zatca_fields: async function(frm) {
+        const zatca_enabled_res = await frappe.db.get_value('Company', frm.doc.company, 'custom_zatca_invoice_enabled');
+        const zatca_enabeld = zatca_enabled_res.message.custom_zatca_invoice_enabled == 1;
 
-
-    }
+        // if zatca enabeld display all realted fields
+        frm.toggle_display('custom_zatca_status_notification', zatca_enabeld);
+        frm.toggle_display('custom_section_break_gqwpx', zatca_enabeld);
+        frm.toggle_display('custom_b2c', zatca_enabeld);
+        frm.toggle_display('custom_zatca_pos_name', zatca_enabeld);
+    },
 });
 
 frappe.ui.form.on('Sales Invoice', {

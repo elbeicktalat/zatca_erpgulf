@@ -299,7 +299,6 @@ fixtures = [
     {"dt": "Workspace", "filters": {"module": "Zatca Erpgulf"}},
     {"dt": "Custom Field", "filters": [["module", "=", "Zatca Erpgulf"]]},
     {"dt": "Report", "filters": {"module": "Zatca Erpgulf"}},
-    {"doctype": "Client Script", "filters": {"module": "Zatca Erpgulf"}},
     {
         "dt": "Report",
         "filters": [
